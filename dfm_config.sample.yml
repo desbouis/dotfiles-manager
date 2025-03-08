@@ -1,0 +1,51 @@
+---
+author: Your name here if you want
+version: 0.0.0
+
+dotfiles:
+
+  - name: my_bin
+    comment: Example to explain yaml configuration
+    binary: my_bin
+    enabled: false # set 'true' to enable my_bin setup
+    conf_target: ${YOUR_REPO_PATH}/config/my_bin.toml # you can use your env vars, set "" if not needed
+    conf_symlink: ${HOME}/.config/my_bin/config.toml # you can use your env vars, set "" if not needed
+    export_vars:
+      - name: MY_BIN_VAR_NAME_ONE
+        value: value_one
+      - name: MY_BIN_VAR_NAME_TWO
+        value: value_two
+    init_command: my_bin completion bash; echo "my_bin - $(date)" >> ${DFM_SEMAPHORE}
+
+  - name: atuin - https://github.com/atuinsh/atuin
+    comment: Full real example
+    binary: atuin
+    enabled: true
+    conf_target: ${YOUR_CONFIG_DIR}/atuin.toml
+    conf_symlink: ${HOME}/.config/atuin/config.toml
+    export_vars:
+      - name: ATUIN_NOBIND
+        value: "false"
+    init_command: atuin init bash; echo "atuin - $(date)" >> ${DFM_SEMAPHORE}
+
+  - name: awscli2
+    comment: Disabled example with only configuration file to target, without 'init_command' and without exporting env var
+    binary: aws
+    enabled: false
+    conf_target: ${YOUR_CONFIG_DIR}/aws
+    conf_symlink: ${HOME}/.aws/config
+
+  - name: bidon
+    comment: Example of a not existing binary
+    binary: bidon
+    enabled: true
+    conf_target: ${YOUR_CONFIG_DIR}/bidon
+    conf_symlink: ${HOME}/.bidon/config
+
+  - name: dasel - https://github.com/TomWright/dasel
+    comment: Example with only 'init_command', without configuration file to target and without exporting env var
+    binary: dasel
+    enabled: false
+    conf_target: ""
+    conf_symlink: ""
+    init_command: dasel completion bash
